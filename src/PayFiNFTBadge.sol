@@ -42,6 +42,13 @@ contract PayFiNFTBadge is Initializable, ERC721Upgradeable, OwnableUpgradeable, 
         }
     }
 
+    function tokenURI(uint256 tokenId) public view override returns (string memory) {
+        _requireOwned(tokenId);
+
+        string memory baseURI = _baseURI();
+        return bytes(baseURI).length > 0 ? baseURI : "";
+    }
+
     function setDefaultURI(string calldata uri) public onlyOwner {
         _defaultURI = uri;
     }
